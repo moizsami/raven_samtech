@@ -20,6 +20,21 @@ app_license = "mit"
 # 		"has_permission": "raven_samtech.api.permission.has_app_permission"
 # 	}
 # ]
+fixtures = [
+    {
+        "doctype": "Custom Field",
+        "filters": [["module", "=", "Raven Samtech"]],
+    },
+    {
+        "doctype": "Property Setter",
+        "filters": [["module", "=", "Raven Samtech"]],
+    },
+    {
+        "doctype": "Client Script",
+        "filters": [["module", "=", "Raven Samtech"]],
+    }
+    
+]
 
 # Includes in <head>
 # ------------------

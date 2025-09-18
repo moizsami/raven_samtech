@@ -1,0 +1,13 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Raven Document Notification",
+  "enabled": 1,
+  "modified": "2025-09-17 16:18:57.897049",
+  "module": "Raven Samtech",
+  "name": "raven",
+  "script": "frappe.raven_notification = {\r\n    setup_value_change_fields: function (frm) {\r\n        if (!frm.doc.document_type) return;\r\n        \r\n        frappe.model.with_doctype(frm.doc.document_type, function () {\r\n            let fields = frappe.get_doc(\"DocType\", frm.doc.document_type).fields;\r\n            \r\n            // Helper: format fieldname + label\r\n            let get_option = function (df) {\r\n                return {\r\n                    value: df.fieldname,\r\n                    label: `${df.fieldname} (${__(df.label, null, df.parent)})`,\r\n                };\r\n            };\r\n            \r\n            // Only include \"value\" fields, skip layout/system\r\n            let options = $.map(fields, function (df) {\r\n                return frappe.model.no_value_type.includes(df.fieldtype) ? null : get_option(df);\r\n            });\r\n            \r\n            // Add some system fields explicitly\r\n            options.push({ value: \"owner\", label: \"owner (Owner)\" });\r\n            options.push({ value: \"modified\", label: \"modified (Last Modified)\" });\r\n            \r\n            // Set into field\r\n            frm.set_df_property(\r\n                \"custom_field_to_watch\",\r\n                \"options\",\r\n                [\"\"].concat(options.map((o) => o.label))\r\n            );\r\n            \r\n            // Store map of label → value for later (so you know fieldname in backend)\r\n            frm.value_field_map = {};\r\n            options.forEach((o) => (frm.value_field_map[o.label] = o.value));\r\n            \r\n            console.log(\"test Shanab \", frm.value_field_map);\r\n        });\r\n    },\r\n};\r\n\r\nfrappe.ui.form.on(\"Raven Document Notification\", {\r\n    document_type: function (frm) {\r\n        frappe.raven_notification.setup_value_change_fields(frm);\r\n    },\r\n    refresh: function (frm) {\r\n        frappe.raven_notification.setup_value_change_fields(frm);\r\n    },\r\n});",
+  "view": "Form"
+ }
+]

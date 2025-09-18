@@ -1,0 +1,18 @@
+[
+ {
+  "default_value": null,
+  "doc_type": "Raven Document Notification",
+  "docstatus": 0,
+  "doctype": "Property Setter",
+  "doctype_or_field": "DocField",
+  "field_name": "send_alert_on",
+  "is_system_generated": 0,
+  "modified": "2025-09-17 16:20:39.867165",
+  "module": "Raven Samtech",
+  "name": "Raven Document Notification-send_alert_on-options",
+  "property": "options",
+  "property_type": null,
+  "row_name": null,
+  "value": "New Document\nUpdate\nSubmit\nCancel\nDelete\nValue Change"
+ }
+]
